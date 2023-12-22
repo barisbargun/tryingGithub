@@ -21,29 +21,29 @@ const App = () => {
   }, [])
 
   return (
-        <Routes>
-          <Routes>
-            <Route path='/' element={<Layout />}>
 
-              <Route index element={<Home />} />
+    <Routes>
+      <Route path='/' element={<Layout />}>
 
-              <Route path='post' >
+        <Route index element={<Home />} />
 
-                <Route index element={<NewPost />} />
+        <Route path='post' >
 
-                <Route path=':id' >
-                  <Route index element={<PostPage />} />
-                  <Route path='edit' element={<EditPost />} />
-                </Route>
+          <Route index element={<NewPost />} />
 
-              </Route>
+          <Route path=':id' >
+            <Route index element={<PostPage />} />
+            <Route path='edit' element={<EditPost />} />
+          </Route>
 
-              <Route path='about' element={<About />} />
-              <Route path='*' element={<Missing />} />
+        </Route>
 
-            </Route>
-          </Routes>
-        </Routes>
+        <Route path='about' element={<About />} />
+        <Route path='*' element={<Missing />} />
+
+      </Route>
+    </Routes>
+
 
   )
 }

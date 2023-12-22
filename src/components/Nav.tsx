@@ -8,7 +8,6 @@ const Nav = () => {
   return (
     <nav>
       <input 
-      role='searchingInput'
       type="text"
       aria-label='Searching Input'
       value={searchPost}
