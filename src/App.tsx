@@ -1,20 +1,50 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import App3 from "./tutorials/tut03/App3"
-import { StoreProvider } from "easy-peasy"
-import store from "./tutorials/tut03/store"
+import { Route, Routes } from "react-router-dom"
+import "./style/main.scss";
+import Layout from './components/Layout';
+import Home from './components/Home';
+import Missing from './components/Missing';
+import About from './components/About';
+import NewPost from './components/NewPost';
+import PostPage from './components/PostPage';
+import EditPost from './components/EditPost';
+import { useStoreActions } from "./hooks/useTypedHooks";
+import { useEffect } from "react";
 
 const App = () => {
 
-  return (
+  const fetchPosts = useStoreActions((action) => action.fetchPosts);
 
-    <StoreProvider store={store}>
-      <BrowserRouter>
+  useEffect(() => {
+    let isMounted = true;
+    isMounted && fetchPosts()
+    return () => { isMounted = false; }
+  }, [])
+
+  return (
         <Routes>
-          <Route path='/*' element={<App3 />} />
+          <Routes>
+            <Route path='/' element={<Layout />}>
+
+              <Route index element={<Home />} />
+
+              <Route path='post' >
+
+                <Route index element={<NewPost />} />
+
+                <Route path=':id' >
+                  <Route index element={<PostPage />} />
+                  <Route path='edit' element={<EditPost />} />
+                </Route>
+
+              </Route>
+
+              <Route path='about' element={<About />} />
+              <Route path='*' element={<Missing />} />
+
+            </Route>
+          </Routes>
         </Routes>
-      </BrowserRouter>
-    </StoreProvider>
-    
+
   )
 }
 
